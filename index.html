@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Angel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+        
+        .cyber-border {
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+        
+        .cyber-button {
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .cyber-button:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+            padding: 4px;
+        }
+        
+        .menu-item:hover {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+        
+        .bug-option {
+            transition: all 0.3s ease;
+        }
+        
+        .bug-option:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+            border-color: rgba(0, 255, 255, 0.7);
+        }
+        
+        .alert-modal {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-md cyber-border rounded-lg p-6 bg-gray-900 bg-opacity-80">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold glow-text mb-2">DARK ANGEL</h1>
+            <div class="flex justify-between items-center text-sm">
+                <div>
+                    <span class="text-cyan-400">rafha</span>
+                </div>
+                <div class="text-right">
+                    <div>Role: <span class="text-cyan-400">OWNER</span></div>
+                    <div>Exp: <span class="text-cyan-400">05/08/28, 15.16</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Target Number Input -->
+        <div class="mb-6">
+            <label class="block text-sm mb-2 glow-text">TARGET NUMBER</label>
+            <input type="text" id="targetNumber" placeholder="e.g. 628xxxxxxxxx" 
+                   class="w-full p-3 bg-gray-800 cyber-border rounded text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+        
+        <!-- Select Bug Dropdown -->
+        <div class="mb-6 relative">
+            <label class="block text-sm mb-2 glow-text">SELECT BUG</label>
+            <div class="relative">
+                <button id="selectBugBtn" class="w-full p-3 bg-gray-800 cyber-border rounded text-left flex justify-between items-center">
+                    <span id="selectedBugText" class="text-gray-400">Select Bug...</span>
+                    <i class="fas fa-chevron-down text-cyan-400"></i>
+                </button>
+                
+                <!-- Bug Options Dropdown -->
+                <div id="bugOptions" class="absolute z-10 w-full mt-1 bg-gray-800 cyber-border rounded shadow-lg hidden">
+                    <div class="bug-option p-3 border-b border-gray-700 cursor-pointer" data-value="foreclose-infinite">
+                        • Forclose infinite
+                    </div>
+                    <div class="bug-option p-3 border-b border-gray-700 cursor-pointer" data-value="crash-invisible">
+                        • crash Invisible
+                    </div>
+                    <div class="bug-option p-3 border-b border-gray-700 cursor-pointer" data-value="blank-hard">
+                        • blank hard
+                    </div>
+                    <div class="bug-option p-3 cursor-pointer" data-value="delay-combo">
+                        • delay combo
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Send Bug Button -->
+        <button id="sendBugBtn" class="w-full p-3 cyber-button rounded font-bold text-lg glow-text mb-8">
+            SEND BUG
+        </button>
+        
+        <!-- Navigation Menu -->
+        <div class="grid grid-cols-5 gap-1 text-center">
+            <div class="menu-item cyber-border rounded cursor-pointer flex flex-col items-center justify-center h-16">
+                <i class="fas fa-tachometer-alt text-cyan-400 text-xs mb-1"></i>
+                <div class="text-[9px] font-medium leading-none tracking-tight">DASSBORRD</div>
+            </div>
+            <div class="menu-item cyber-border rounded cursor-pointer flex flex-col items-center justify-center h-16">
+                <i class="fas fa-music text-cyan-400 text-xs mb-1"></i>
+                <div class="text-[9px] font-medium leading-none tracking-tight">MUSIK</div>
+            </div>
+            <div class="menu-item cyber-border rounded cursor-pointer flex flex-col items-center justify-center h-16">
+                <i class="fas fa-network-wired text-cyan-400 text-xs mb-1"></i>
+                <div class="text-[9px] font-medium leading-none tracking-tight">CEK IP</div>
+            </div>
+            <div class="menu-item cyber-border rounded cursor-pointer flex flex-col items-center justify-center h-16">
+                <i class="fab fa-youtube text-cyan-400 text-xs mb-1"></i>
+                <div class="text-[9px] font-medium leading-none tracking-tight">YOUTUBE</div>
+            </div>
+            <div class="menu-item cyber-border rounded cursor-pointer flex flex-col items-center justify-center h-16">
+                <i class="fas fa-robot text-cyan-400 text-xs mb-1"></i>
+                <div class="text-[9px] font-medium leading-none tracking-tight">CHAT AI</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Alert Modal -->
+    <div id="successAlert" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 hidden">
+        <div class="bg-gray-800 cyber-border rounded-lg p-6 max-w-sm w-full mx-4 alert-modal">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-cyan-900 flex items-center justify-center">
+                    <i class="fas fa-check text-cyan-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold glow-text mb-2">Bug Success</h3>
+                <p class="text-gray-300 mb-4">Your bug has been sent successfully to the target.</p>
+                <button id="closeAlert" class="px-6 py-2 cyber-button rounded glow-text">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Select Bug Dropdown Functionality
+        const selectBugBtn = document.getElementById('selectBugBtn');
+        const bugOptions = document.getElementById('bugOptions');
+        const selectedBugText = document.getElementById('selectedBugText');
+        const sendBugBtn = document.getElementById('sendBugBtn');
+        const successAlert = document.getElementById('successAlert');
+        const closeAlert = document.getElementById('closeAlert');
+        
+        // Toggle bug options dropdown
+        selectBugBtn.addEventListener('click', function() {
+            bugOptions.classList.toggle('hidden');
+        });
+        
+        // Select a bug option
+        document.querySelectorAll('.bug-option').forEach(option => {
+            option.addEventListener('click', function() {
+                selectedBugText.textContent = this.textContent.trim();
+                selectedBugText.classList.remove('text-gray-400');
+                selectedBugText.classList.add('text-white');
+                bugOptions.classList.add('hidden');
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!selectBugBtn.contains(event.target) && !bugOptions.contains(event.target)) {
+                bugOptions.classList.add('hidden');
+            }
+        });
+        
+        // Send Bug button functionality
+        sendBugBtn.addEventListener('click', function() {
+            const targetNumber = document.getElementById('targetNumber').value;
+            const selectedBug = selectedBugText.textContent;
+            
+            // Validate inputs
+            if (!targetNumber || targetNumber === 'e.g. 628xxxxxxxxx') {
+                alert('Please enter a target number');
+                return;
+            }
+            
+            if (selectedBug === 'Select Bug...') {
+                alert('Please select a bug type');
+                return;
+            }
+            
+            // Show success alert
+            successAlert.classList.remove('hidden');
+        });
+        
+        // Close success alert
+        closeAlert.addEventListener('click', function() {
+            successAlert.classList.add('hidden');
+        });
+        
+        // Menu item interactions
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                alert(`Navigating to ${this.querySelector('div').textContent}`);
+            });
+        });
+    </script>
+</body>
+</html>
